@@ -192,6 +192,9 @@ while True:
         print("-----------------------------------------")
         print("Thank you for using the Banking Management System!")
         print("-----------------------------------------")
+        print("Made By 'Mriganka Banik'")
+        print("-----------------------------------------")
         break
     else:
         print("Invalid choice! Please try again.")
+        print("Thank you for using the Banking Management System!")
