@@ -1,8 +1,8 @@
 -- Step 1: Create the database
-CREATE DATABASE bank222;
+CREATE DATABASE bank290;
 
 -- Step 2: Use the database
-USE bank222;
+USE bank290;
 
 -- Step 3: Create the accounts table with additional columns for father's name, mother's name, phone, and password
 CREATE TABLE accounts (
