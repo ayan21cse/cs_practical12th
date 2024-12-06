@@ -4,10 +4,10 @@ import re
 
 # Connect to the database
 conn = mysql.connector.connect(
-    host="enter your host",
-    user="enter your user",
-    password="enter your password",
-    database="create database"
+    host="localhost",
+    user="root",
+    password="ayan",
+    database="bank290"
 )
 cursor = conn.cursor()
 
@@ -31,7 +31,7 @@ def create_account():
 
     while not (phone.isdigit() and len(phone) == 10):
         print("Phone number must be a 10-digit numeric value.")
-        phone = input("Enter Phone Number: ")
+        phone = (input("Enter Phone Number: "))
 
     deposit = float(input("Enter Initial Deposit: "))
 
@@ -146,13 +146,36 @@ def check_balance():
     print(f"Account Holder: {name}")
     print(f"Current Balance: {balance}")
 
+def display_transactions():
+    account_no = authenticate()
+    if account_no is None:
+        return
+
+    query = "SELECT account_name, type, amount, date_time FROM transactions WHERE account_no = %s"
+    cursor.execute(query, (account_no,))
+    transactions = cursor.fetchall()
+
+    if not transactions:
+        print("No transactions found for this account.")
+        return
+
+    print("\nTransaction History:")
+    print("-----------------------------------------")
+    print("Account Name | Type | Amount | Date & Time")
+    print("-----------------------------------------")
+    for transaction in transactions:
+        print(f"{transaction[0]} | {transaction[1]} | {transaction[2]} | {transaction[3]}")
+
 while True:
+    print("-----------------------------------------")
     print("\nBanking Management System")
+    print("-----------------------------------------")
     print("1. Create Account")
     print("2. Deposit Money")
     print("3. Withdraw Money")
     print("4. Check Balance")
-    print("5. Exit")
+    print("5. Display Transactions")
+    print("6. Exit")
 
     choice = int(input("Enter your choice: "))
     if choice == 1:
@@ -164,7 +187,11 @@ while True:
     elif choice == 4:
         check_balance()
     elif choice == 5:
+        display_transactions()
+    elif choice == 6:
+        print("-----------------------------------------")
         print("Thank you for using the Banking Management System!")
+        print("-----------------------------------------")
         break
     else:
         print("Invalid choice! Please try again.")
